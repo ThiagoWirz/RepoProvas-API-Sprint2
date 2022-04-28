@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/app.ts",
-    "test": "dotenv -e .env.test prisma db seed && NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

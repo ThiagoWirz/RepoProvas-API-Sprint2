@@ -3,6 +3,8 @@ import supertest from "supertest";
 import userFactory from "./factories/userFactory.js";
 import prisma from "../src/database.js";
 import userBodyFactory from "./factories/userBodyFactory.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 describe("Post /sign-up", () => {
   beforeEach(truncateUsers);
@@ -10,6 +12,7 @@ describe("Post /sign-up", () => {
   afterAll(disconnectPrimas);
 
   it("Should return 201 when create user", async () => {
+    console.log(process.env.DATABASE_URL);
     const body = userBodyFactory();
     const result = await supertest(app).post("/sign-up").send(body);
     const user = await prisma.user.findUnique({
