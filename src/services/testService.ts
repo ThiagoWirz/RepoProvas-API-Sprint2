@@ -47,7 +47,12 @@ async function add(
   await testRepository.add(data);
 }
 
+async function updateViews(id: number) {
+  await testRepository.updateViewsCount(id);
+}
+
 export default {
   find,
   add,
+  updateViews,
 };

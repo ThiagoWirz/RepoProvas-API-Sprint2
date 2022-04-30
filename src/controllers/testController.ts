@@ -26,7 +26,16 @@ async function add(req: Request, res: Response) {
   res.sendStatus(201);
 }
 
+async function updateViews(req: Request, res: Response) {
+  const { id } = req.params;
+
+  await testService.updateViews(parseInt(id));
+
+  res.sendStatus(200);
+}
+
 export default {
   find,
   add,
+  updateViews,
 };

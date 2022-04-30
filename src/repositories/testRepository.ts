@@ -42,8 +42,22 @@ async function add(createTestData: CreateTestData) {
   });
 }
 
+async function updateViewsCount(id: number) {
+  return prisma.test.update({
+    where: {
+      id,
+    },
+    data: {
+      views: {
+        increment: 1,
+      },
+    },
+  });
+}
+
 export default {
   getTestsByDiscipline,
   getTestsByTeachers,
   add,
+  updateViewsCount,
 };
