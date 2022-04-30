@@ -9,5 +9,10 @@ teacherRouter.get(
   ensureAuthenticatedMiddleware,
   teacherController.getTeachersNames
 );
+teacherRouter.get(
+  "/teachers/:discipline",
+  ensureAuthenticatedMiddleware,
+  teacherController.getTeachersByDiscipline
+);
 
 export default teacherRouter;

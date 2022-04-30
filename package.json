@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.ts",
+    "dev": "nodemon src/app.ts -L",
     "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest"
   },
   "prisma": {
