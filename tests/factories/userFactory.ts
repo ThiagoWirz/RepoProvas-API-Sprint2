@@ -1,4 +1,3 @@
-// import faker from "faker";
 import bcrypt from "bcrypt";
 import prisma from "../../src/database.js";
 import { CreateUserData } from "../../src/services/userService.js";

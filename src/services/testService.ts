@@ -2,6 +2,7 @@ import categoryRepository from "../repositories/categoryRepository.js";
 import disciplineRepository from "../repositories/disciplineRepository.js";
 import teacherRepository from "../repositories/teacherRepository.js";
 import testRepository from "../repositories/testRepository.js";
+import { notFoundError, badRequest } from "../utils/errorUtils.js";
 
 interface Filter {
   groupBy: "disciplines" | "teachers";
@@ -29,19 +30,27 @@ async function add(
   disciplineName: string,
   teacherName: string
 ) {
-  const { id: categoryId } = await categoryRepository.findByName(categoryName);
-  const { id: disciplineId } = await disciplineRepository.findByName(
-    disciplineName
+  const category = await categoryRepository.findByName(categoryName);
+  if (!category) throw notFoundError("category not found");
+
+  const discipline = await disciplineRepository.findByName(disciplineName);
+  if (!discipline) throw notFoundError("discipline not found");
+
+  const teacher = await teacherRepository.findByName(teacherName);
+  if (!teacher) throw notFoundError("teacher not found");
+
+  const teacherDiscipline = await teacherRepository.findTeacherDiscipline(
+    teacher.id,
+    discipline.id
   );
-  const { id: teacherId } = await teacherRepository.findByName(teacherName);
-  const { id: teacherDisciplineId } =
-    await teacherRepository.findTeacherDiscipline(teacherId, disciplineId);
+  if (!teacherDiscipline)
+    throw badRequest("Teacher do not teach this discipline");
 
   const data = {
     name,
     pdfUrl,
-    categoryId,
-    teacherDisciplineId,
+    categoryId: category.id,
+    teacherDisciplineId: teacherDiscipline.id,
   };
 
   await testRepository.add(data);

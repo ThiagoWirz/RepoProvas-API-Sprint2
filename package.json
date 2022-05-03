@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/app.ts -L",
-    "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest --detectOpenHandles --maxWorkers=1"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
